@@ -3,7 +3,6 @@
 
 [app build.gradle]
 dependencies 추가
-implementation 'com.skyware:droid-bluetooth:1.0.1-RELEASE'
 implementation 'com.skyware:droid-commons:1.0.1-RELEASE'
 
 [project build.gradle]
