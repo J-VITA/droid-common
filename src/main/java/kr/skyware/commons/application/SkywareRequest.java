@@ -7,13 +7,18 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.StringEntity;
+
 import kr.skyware.commons.http.AsyncHttpClient;
 import kr.skyware.commons.http.RequestParams;
+import kr.skyware.commons.http.entity.StringEntity;
 import kr.skyware.commons.http.handler.AsyncHttpResponseHandler;
+import kr.skyware.commons.http.header.Header;
 import kr.skyware.commons.util.Logging;
 
+/**
+ * 테스트 목적으로 작성되어짐.
+ * 사용시 커스텀해서 사용 권장.
+* */
 public class SkywareRequest{
 
     public static String BASE_URL;

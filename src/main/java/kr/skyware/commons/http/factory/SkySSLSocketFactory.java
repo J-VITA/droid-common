@@ -19,18 +19,16 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import cz.msebera.android.httpclient.HttpVersion;
-import cz.msebera.android.httpclient.conn.ClientConnectionManager;
-import cz.msebera.android.httpclient.conn.scheme.PlainSocketFactory;
-import cz.msebera.android.httpclient.conn.scheme.Scheme;
-import cz.msebera.android.httpclient.conn.scheme.SchemeRegistry;
-import cz.msebera.android.httpclient.conn.ssl.SSLSocketFactory;
-import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
-import cz.msebera.android.httpclient.impl.conn.tsccm.ThreadSafeClientConnManager;
-import cz.msebera.android.httpclient.params.BasicHttpParams;
-import cz.msebera.android.httpclient.params.HttpParams;
-import cz.msebera.android.httpclient.params.HttpProtocolParams;
-import cz.msebera.android.httpclient.protocol.HTTP;
+import kr.skyware.commons.http.client.Scheme;
+import kr.skyware.commons.http.client.impl.client.DefaultHttpClient;
+import kr.skyware.commons.http.connect.tsccm.ThreadSafeClientConnManager;
+import kr.skyware.commons.http.header.BasicHttpParams;
+import kr.skyware.commons.http.header.ClientConnectionManager;
+import kr.skyware.commons.http.header.HttpParams;
+import kr.skyware.commons.http.params.HttpProtocolParams;
+import kr.skyware.commons.http.util.HTTP;
+import kr.skyware.commons.http.util.HttpVersion;
+
 
 public class SkySSLSocketFactory  extends SSLSocketFactory {
     final SSLContext sslContext = SSLContext.getInstance("TLS");

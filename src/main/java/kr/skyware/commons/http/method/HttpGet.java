@@ -2,25 +2,23 @@ package kr.skyware.commons.http.method;
 
 import java.net.URI;
 
-import cz.msebera.android.httpclient.client.methods.HttpEntityEnclosingRequestBase;
+import kr.skyware.commons.http.annotation.NotThreadSafe;
 
-public final class HttpGet extends HttpEntityEnclosingRequestBase {
+@NotThreadSafe
+public class HttpGet extends HttpRequestBase {
+
     public final static String METHOD_NAME = "GET";
 
     public HttpGet() {
         super();
     }
 
-    /**
-     * @param uri target url as URI
-     */
     public HttpGet(final URI uri) {
         super();
         setURI(uri);
     }
 
     /**
-     * @param uri target url as String
      * @throws IllegalArgumentException if the uri is invalid.
      */
     public HttpGet(final String uri) {
@@ -32,4 +30,5 @@ public final class HttpGet extends HttpEntityEnclosingRequestBase {
     public String getMethod() {
         return METHOD_NAME;
     }
+
 }

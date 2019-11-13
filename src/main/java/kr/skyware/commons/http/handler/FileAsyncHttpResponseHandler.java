@@ -7,11 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpEntity;
+
 import kr.skyware.commons.http.AsyncHttpClient;
-import kr.skyware.commons.http.handler.AsyncHttpResponseHandler;
-import kr.skyware.commons.http.util.Utils;
+import kr.skyware.commons.http.HttpEntity;
+import kr.skyware.commons.http.header.Header;
+import kr.skyware.commons.util.Utils;
 
 public abstract class FileAsyncHttpResponseHandler extends AsyncHttpResponseHandler {
     private static final String LOG_TAG = "FileAsyncHttpRH";

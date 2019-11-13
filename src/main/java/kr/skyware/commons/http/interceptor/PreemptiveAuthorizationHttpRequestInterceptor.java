@@ -2,18 +2,18 @@ package kr.skyware.commons.http.interceptor;
 
 import java.io.IOException;
 
-import cz.msebera.android.httpclient.HttpException;
-import cz.msebera.android.httpclient.HttpHost;
-import cz.msebera.android.httpclient.HttpRequest;
-import cz.msebera.android.httpclient.HttpRequestInterceptor;
-import cz.msebera.android.httpclient.auth.AuthScope;
-import cz.msebera.android.httpclient.auth.AuthState;
-import cz.msebera.android.httpclient.auth.Credentials;
-import cz.msebera.android.httpclient.client.CredentialsProvider;
-import cz.msebera.android.httpclient.client.protocol.ClientContext;
-import cz.msebera.android.httpclient.impl.auth.BasicScheme;
-import cz.msebera.android.httpclient.protocol.ExecutionContext;
-import cz.msebera.android.httpclient.protocol.HttpContext;
+import kr.skyware.commons.http.client.CredentialsProvider;
+import kr.skyware.commons.http.client.auth.AuthScope;
+import kr.skyware.commons.http.client.auth.AuthState;
+import kr.skyware.commons.http.client.auth.BasicScheme;
+import kr.skyware.commons.http.client.auth.Credentials;
+import kr.skyware.commons.http.client.protocol.ClientContext;
+import kr.skyware.commons.http.client.protocol.ExecutionContext;
+import kr.skyware.commons.http.exception.HttpException;
+import kr.skyware.commons.http.header.HttpContext;
+import kr.skyware.commons.http.header.HttpHost;
+import kr.skyware.commons.http.header.HttpRequest;
+
 
 public class PreemptiveAuthorizationHttpRequestInterceptor implements HttpRequestInterceptor {
     public void process(final HttpRequest request, final HttpContext context) throws HttpException, IOException {

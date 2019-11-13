@@ -6,8 +6,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Date;
 
-import cz.msebera.android.httpclient.cookie.Cookie;
-import cz.msebera.android.httpclient.impl.cookie.BasicClientCookie;
 
 /**
  * A wrapper class around {@link Cookie} and/or {@link BasicClientCookie} designed for use in {@link

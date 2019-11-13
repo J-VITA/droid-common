@@ -3,20 +3,20 @@ package kr.skyware.commons.http.handler;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpHost;
-import cz.msebera.android.httpclient.HttpRequest;
-import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.HttpStatus;
-import cz.msebera.android.httpclient.ProtocolException;
-import cz.msebera.android.httpclient.client.CircularRedirectException;
-import cz.msebera.android.httpclient.client.params.ClientPNames;
-import cz.msebera.android.httpclient.client.utils.URIUtils;
-import cz.msebera.android.httpclient.impl.client.DefaultRedirectHandler;
-import cz.msebera.android.httpclient.impl.client.RedirectLocations;
-import cz.msebera.android.httpclient.params.HttpParams;
-import cz.msebera.android.httpclient.protocol.ExecutionContext;
-import cz.msebera.android.httpclient.protocol.HttpContext;
+import kr.skyware.commons.http.HttpResponse;
+import kr.skyware.commons.http.client.impl.client.DefaultRedirectHandler;
+import kr.skyware.commons.http.client.impl.client.RedirectLocations;
+import kr.skyware.commons.http.exception.CircularRedirectException;
+import kr.skyware.commons.http.exception.ProtocolException;
+import kr.skyware.commons.http.header.Header;
+import kr.skyware.commons.http.header.HttpContext;
+import kr.skyware.commons.http.header.HttpHost;
+import kr.skyware.commons.http.header.HttpParams;
+import kr.skyware.commons.http.header.HttpRequest;
+import kr.skyware.commons.http.header.URIUtils;
+import kr.skyware.commons.http.params.ClientPNames;
+import kr.skyware.commons.http.client.protocol.ExecutionContext;
+import kr.skyware.commons.http.util.HttpStatus;
 
 /**
  * Taken from StackOverflow

@@ -10,11 +10,12 @@ import java.util.HashSet;
 
 import javax.net.ssl.SSLException;
 
-import cz.msebera.android.httpclient.NoHttpResponseException;
-import cz.msebera.android.httpclient.client.HttpRequestRetryHandler;
-import cz.msebera.android.httpclient.client.methods.HttpUriRequest;
-import cz.msebera.android.httpclient.protocol.ExecutionContext;
-import cz.msebera.android.httpclient.protocol.HttpContext;
+
+import kr.skyware.commons.http.client.HttpRequestRetryHandler;
+import kr.skyware.commons.http.exception.NoHttpResponseException;
+import kr.skyware.commons.http.header.HttpContext;
+import kr.skyware.commons.http.header.HttpUriRequest;
+import kr.skyware.commons.http.client.protocol.ExecutionContext;
 
 class RetryHandler  implements HttpRequestRetryHandler {
     private final static HashSet<Class<?>> exceptionWhitelist = new HashSet<Class<?>>();

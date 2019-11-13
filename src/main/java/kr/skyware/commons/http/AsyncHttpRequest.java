@@ -5,14 +5,14 @@ import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.client.HttpRequestRetryHandler;
-import cz.msebera.android.httpclient.client.methods.HttpUriRequest;
-import cz.msebera.android.httpclient.impl.client.AbstractHttpClient;
-import cz.msebera.android.httpclient.protocol.HttpContext;
+
+import kr.skyware.commons.http.client.AbstractHttpClient;
+import kr.skyware.commons.http.client.HttpRequestRetryHandler;
 import kr.skyware.commons.http.handler.RangeFileAsyncHttpResponseHandler;
 import kr.skyware.commons.http.handler.ResponseHandlerInterface;
-import kr.skyware.commons.http.util.Utils;
+import kr.skyware.commons.http.header.HttpContext;
+import kr.skyware.commons.http.header.HttpUriRequest;
+import kr.skyware.commons.util.Utils;
 
 public class AsyncHttpRequest implements Runnable {
     private final AbstractHttpClient client;

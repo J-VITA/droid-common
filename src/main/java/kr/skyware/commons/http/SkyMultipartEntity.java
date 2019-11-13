@@ -12,11 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.message.BasicHeader;
-import cz.msebera.android.httpclient.protocol.HTTP;
 import kr.skyware.commons.http.handler.ResponseHandlerInterface;
+import kr.skyware.commons.http.header.Header;
+import kr.skyware.commons.http.message.BasicHeader;
+import kr.skyware.commons.http.util.HTTP;
 
 public class SkyMultipartEntity implements HttpEntity {
     private static final String LOG_TAG = "SkyMultipartEntity";

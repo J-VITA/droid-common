@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
-import cz.msebera.android.httpclient.client.CookieStore;
-import cz.msebera.android.httpclient.cookie.Cookie;
 import kr.skyware.commons.http.AsyncHttpClient;
 
 /**

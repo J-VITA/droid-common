@@ -5,14 +5,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.HttpStatus;
-import cz.msebera.android.httpclient.StatusLine;
-import cz.msebera.android.httpclient.client.HttpResponseException;
-import cz.msebera.android.httpclient.client.methods.HttpUriRequest;
+
 import kr.skyware.commons.http.AsyncHttpClient;
+import kr.skyware.commons.http.HttpEntity;
+import kr.skyware.commons.http.HttpResponse;
+import kr.skyware.commons.http.exception.HttpResponseException;
+import kr.skyware.commons.http.header.Header;
+import kr.skyware.commons.http.header.HttpUriRequest;
+import kr.skyware.commons.http.util.HttpStatus;
+import kr.skyware.commons.http.util.StatusLine;
 
 public abstract class RangeFileAsyncHttpResponseHandler extends FileAsyncHttpResponseHandler {
     private static final String LOG_TAG = "RangeFileAsyncHttpRH";

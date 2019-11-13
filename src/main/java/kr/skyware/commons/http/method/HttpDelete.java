@@ -2,7 +2,6 @@ package kr.skyware.commons.http.method;
 
 import java.net.URI;
 
-import cz.msebera.android.httpclient.client.methods.HttpEntityEnclosingRequestBase;
 
 /**
  * The current Android (API level 21) bundled version of the Apache Http Client does not implement

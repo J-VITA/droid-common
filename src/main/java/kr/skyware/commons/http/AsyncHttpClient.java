@@ -22,53 +22,26 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.zip.GZIPInputStream;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HeaderElement;
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.HttpException;
-import cz.msebera.android.httpclient.HttpHost;
-import cz.msebera.android.httpclient.HttpRequest;
-import cz.msebera.android.httpclient.HttpRequestInterceptor;
-import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.HttpResponseInterceptor;
-import cz.msebera.android.httpclient.HttpVersion;
-import cz.msebera.android.httpclient.auth.AuthScope;
-import cz.msebera.android.httpclient.auth.AuthState;
-import cz.msebera.android.httpclient.auth.Credentials;
-import cz.msebera.android.httpclient.auth.UsernamePasswordCredentials;
-import cz.msebera.android.httpclient.client.CookieStore;
-import cz.msebera.android.httpclient.client.CredentialsProvider;
-import cz.msebera.android.httpclient.client.HttpClient;
-import cz.msebera.android.httpclient.client.RedirectHandler;
-import cz.msebera.android.httpclient.client.methods.HttpEntityEnclosingRequestBase;
-import cz.msebera.android.httpclient.client.methods.HttpHead;
-import cz.msebera.android.httpclient.client.methods.HttpPatch;
-import cz.msebera.android.httpclient.client.methods.HttpPost;
-import cz.msebera.android.httpclient.client.methods.HttpPut;
-import cz.msebera.android.httpclient.client.methods.HttpUriRequest;
-import cz.msebera.android.httpclient.client.params.ClientPNames;
-import cz.msebera.android.httpclient.client.protocol.ClientContext;
-import cz.msebera.android.httpclient.conn.ClientConnectionManager;
-import cz.msebera.android.httpclient.conn.params.ConnManagerParams;
-import cz.msebera.android.httpclient.conn.params.ConnPerRouteBean;
-import cz.msebera.android.httpclient.conn.params.ConnRoutePNames;
-import cz.msebera.android.httpclient.conn.scheme.PlainSocketFactory;
-import cz.msebera.android.httpclient.conn.scheme.Scheme;
-import cz.msebera.android.httpclient.conn.scheme.SchemeRegistry;
-import cz.msebera.android.httpclient.conn.ssl.SSLSocketFactory;
-import cz.msebera.android.httpclient.entity.HttpEntityWrapper;
-import cz.msebera.android.httpclient.impl.auth.BasicScheme;
-import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
-import cz.msebera.android.httpclient.impl.conn.tsccm.ThreadSafeClientConnManager;
-import cz.msebera.android.httpclient.params.BasicHttpParams;
-import cz.msebera.android.httpclient.params.HttpConnectionParams;
-import cz.msebera.android.httpclient.params.HttpParams;
-import cz.msebera.android.httpclient.params.HttpProtocolParams;
-import cz.msebera.android.httpclient.protocol.BasicHttpContext;
-import cz.msebera.android.httpclient.protocol.ExecutionContext;
-import cz.msebera.android.httpclient.protocol.HttpContext;
-import cz.msebera.android.httpclient.protocol.SyncBasicHttpContext;
+
+import kr.skyware.commons.http.client.CredentialsProvider;
+import kr.skyware.commons.http.client.impl.client.DefaultHttpClient;
+import kr.skyware.commons.http.client.Scheme;
+import kr.skyware.commons.http.client.auth.AuthScope;
+import kr.skyware.commons.http.client.auth.AuthState;
+import kr.skyware.commons.http.client.auth.BasicScheme;
+import kr.skyware.commons.http.client.auth.Credentials;
+import kr.skyware.commons.http.client.auth.UsernamePasswordCredentials;
+import kr.skyware.commons.http.client.impl.client.HttpClient;
+import kr.skyware.commons.http.config.HttpEntityWrapper;
+import kr.skyware.commons.http.connect.HttpConnectionParams;
+import kr.skyware.commons.http.connect.tsccm.ThreadSafeClientConnManager;
+import kr.skyware.commons.http.cookie.CookieStore;
 import kr.skyware.commons.http.cookie.PersistentCookieStore;
+import kr.skyware.commons.http.exception.HttpException;
+import kr.skyware.commons.http.execute.BasicHttpContext;
+import kr.skyware.commons.http.factory.PlainSocketFactory;
+import kr.skyware.commons.http.factory.SSLSocketFactory;
+import kr.skyware.commons.http.factory.SchemeRegistry;
 import kr.skyware.commons.http.factory.SkySSLSocketFactory;
 import kr.skyware.commons.http.handler.AsyncHttpResponseHandler;
 import kr.skyware.commons.http.handler.LogHandler;
@@ -77,10 +50,36 @@ import kr.skyware.commons.http.handler.RequestHandle;
 import kr.skyware.commons.http.handler.ResponseHandlerInterface;
 
 import kr.skyware.commons.http.handler.SkyRedirectHandler;
+import kr.skyware.commons.http.header.BasicHttpParams;
+import kr.skyware.commons.http.header.ClientConnectionManager;
+import kr.skyware.commons.http.header.Header;
+import kr.skyware.commons.http.header.HeaderElement;
+import kr.skyware.commons.http.header.HttpContext;
+import kr.skyware.commons.http.header.HttpHost;
+import kr.skyware.commons.http.header.HttpParams;
+import kr.skyware.commons.http.header.HttpRequest;
+import kr.skyware.commons.http.header.HttpUriRequest;
+import kr.skyware.commons.http.interceptor.HttpRequestInterceptor;
+import kr.skyware.commons.http.interceptor.HttpResponseInterceptor;
 import kr.skyware.commons.http.interceptor.PreemptiveAuthorizationHttpRequestInterceptor;
 import kr.skyware.commons.http.method.HttpDelete;
+import kr.skyware.commons.http.method.HttpEntityEnclosingRequestBase;
 import kr.skyware.commons.http.method.HttpGet;
-import kr.skyware.commons.http.util.Utils;
+import kr.skyware.commons.http.method.HttpHead;
+import kr.skyware.commons.http.method.HttpPatch;
+import kr.skyware.commons.http.method.HttpPost;
+import kr.skyware.commons.http.method.HttpPut;
+import kr.skyware.commons.http.method.SkyHttpGet;
+import kr.skyware.commons.http.params.ClientPNames;
+import kr.skyware.commons.http.params.ConnManagerParams;
+import kr.skyware.commons.http.params.ConnPerRouteBean;
+import kr.skyware.commons.http.params.ConnRoutePNames;
+import kr.skyware.commons.http.params.HttpProtocolParams;
+import kr.skyware.commons.http.client.protocol.ClientContext;
+import kr.skyware.commons.http.client.protocol.ExecutionContext;
+import kr.skyware.commons.http.client.protocol.SyncBasicHttpContext;
+import kr.skyware.commons.http.util.HttpVersion;
+import kr.skyware.commons.util.Utils;
 
 
 public class AsyncHttpClient {
@@ -589,7 +588,7 @@ public class AsyncHttpClient {
      * @param customRedirectHandler RedirectHandler instance
      * @see SkyRedirectHandler
      */
-    public void setRedirectHandler(final RedirectHandler customRedirectHandler) {
+    public void setRedirectHandler(final SkyRedirectHandler customRedirectHandler) {
         httpClient.setRedirectHandler(customRedirectHandler);
     }
 
@@ -1070,16 +1069,16 @@ public class AsyncHttpClient {
      *
      * @param context         the Android Context which initiated the request.
      * @param url             the URL to send the request to.
-     * @param entity          a raw {@link cz.msebera.android.httpclient.HttpEntity} to send with the request, for
+     * @param entity          a raw {@link HttpEntity} to send with the request, for
      *                        example, use this to send string/json/xml payloads to a server by
-     *                        passing a {@link cz.msebera.android.httpclient.entity.StringEntity}.
+     *                        passing a {@link kr.skyware.commons.http.entity.StringEntity}.
      * @param contentType     the content type of the payload you are sending, for example
      *                        application/json if sending a json payload.
      * @param responseHandler the response ha   ndler instance that should handle the response.
      * @return RequestHandle of future request process
      */
     public RequestHandle get(Context context, String url, HttpEntity entity, String contentType, ResponseHandlerInterface responseHandler) {
-        return sendRequest(httpClient, httpContext, addEntityToRequestBase(new HttpGet(URI.create(url).normalize()), entity), contentType, responseHandler, context);
+        return sendRequest(httpClient, httpContext, addEntityToRequestBase(new SkyHttpGet(URI.create(url).normalize()), entity), contentType, responseHandler, context);
     }
 
     /**
@@ -1126,9 +1125,9 @@ public class AsyncHttpClient {
      *
      * @param context         the Android Context which initiated the request.
      * @param url             the URL to send the request to.
-     * @param entity          a raw {@link cz.msebera.android.httpclient.HttpEntity} to send with the request, for
+     * @param entity          a raw {@link HttpEntity} to send with the request, for
      *                        example, use this to send string/json/xml payloads to a server by
-     *                        passing a {@link cz.msebera.android.httpclient.entity.StringEntity}.
+     *                        passing a {@link kr.skyware.commons.http.entity.StringEntity}.
      * @param contentType     the content type of the payload you are sending, for example
      *                        application/json if sending a json payload.
      * @param responseHandler the response ha   ndler instance that should handle the response.
@@ -1169,7 +1168,7 @@ public class AsyncHttpClient {
      * @param headers         set headers only for this request
      * @param entity          a raw {@link HttpEntity} to send with the request, for example, use
      *                        this to send string/json/xml payloads to a server by passing a {@link
-     *                        cz.msebera.android.httpclient.entity.StringEntity}.
+     *                        kr.skyware.commons.http.entity.StringEntity}.
      * @param contentType     the content type of the payload you are sending, for example
      *                        application/json if sending a json payload.
      * @param responseHandler the response handler instance that should handle the response.
@@ -1226,7 +1225,7 @@ public class AsyncHttpClient {
      * @param url             the URL to send the request to.
      * @param entity          a raw {@link HttpEntity} to send with the request, for example, use
      *                        this to send string/json/xml payloads to a server by passing a {@link
-     *                        cz.msebera.android.httpclient.entity.StringEntity}.
+     *                        kr.skyware.commons.http.entity.StringEntity}.
      * @param contentType     the content type of the payload you are sending, for example
      *                        application/json if sending a json payload.
      * @param responseHandler the response handler instance that should handle the response.
@@ -1245,7 +1244,7 @@ public class AsyncHttpClient {
      * @param headers         set one-time headers for this request
      * @param entity          a raw {@link HttpEntity} to send with the request, for example, use
      *                        this to send string/json/xml payloads to a server by passing a {@link
-     *                        cz.msebera.android.httpclient.entity.StringEntity}.
+     *                        kr.skyware.commons.http.entity.StringEntity}.
      * @param contentType     the content type of the payload you are sending, for example
      *                        application/json if sending a json payload.
      * @param responseHandler the response handler instance that should handle the response.
@@ -1305,7 +1304,7 @@ public class AsyncHttpClient {
      * @param responseHandler the response handler instance that should handle the response.
      * @param entity          a raw {@link HttpEntity} to send with the request, for example, use
      *                        this to send string/json/xml payloads to a server by passing a {@link
-     *                        cz.msebera.android.httpclient.entity.StringEntity}
+     *                        kr.skyware.commons.http.entity.StringEntity}
      * @param contentType     the content type of the payload you are sending, for example
      *                        "application/json" if sending a json payload.
      * @return RequestHandle of future request process
@@ -1323,7 +1322,7 @@ public class AsyncHttpClient {
      * @param headers         set one-time headers for this request
      * @param entity          a raw {@link HttpEntity} to send with the request, for example, use
      *                        this to send string/json/xml payloads to a server by passing a {@link
-     *                        cz.msebera.android.httpclient.entity.StringEntity}.
+     *                        kr.skyware.commons.http.entity.StringEntity}.
      * @param contentType     the content type of the payload you are sending, for example
      *                        application/json if sending a json payload.
      * @param responseHandler the response handler instance that should handle the response.
@@ -1409,9 +1408,9 @@ public class AsyncHttpClient {
      *
      * @param context         the Android Context which initiated the request.
      * @param url             the URL to send the request to.
-     * @param entity          a raw {@link cz.msebera.android.httpclient.HttpEntity} to send with the request, for
+     * @param entity          a raw {@link HttpEntity} to send with the request, for
      *                        example, use this to send string/json/xml payloads to a server by
-     *                        passing a {@link cz.msebera.android.httpclient.entity.StringEntity}.
+     *                        passing a {@link kr.skyware.commons.http.entity.StringEntity}.
      * @param contentType     the content type of the payload you are sending, for example
      *                        application/json if sending a json payload.
      * @param responseHandler the response ha   ndler instance that should handle the response.

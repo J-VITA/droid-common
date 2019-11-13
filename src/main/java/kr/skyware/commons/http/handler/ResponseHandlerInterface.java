@@ -3,8 +3,8 @@ package kr.skyware.commons.http.handler;
 import java.io.IOException;
 import java.net.URI;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpResponse;
+import kr.skyware.commons.http.HttpResponse;
+import kr.skyware.commons.http.header.Header;
 
 public interface ResponseHandlerInterface {
     /**

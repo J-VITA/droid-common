@@ -17,13 +17,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
-import cz.msebera.android.httpclient.client.utils.URLEncodedUtils;
-import cz.msebera.android.httpclient.message.BasicNameValuePair;
-import cz.msebera.android.httpclient.protocol.HTTP;
+import kr.skyware.commons.http.builder.URLEncodedUtils;
+import kr.skyware.commons.http.entity.UrlEncodedFormEntity;
 import kr.skyware.commons.http.handler.ResponseHandlerInterface;
-import kr.skyware.commons.http.json.JsonStreamerEntity;
+import kr.skyware.commons.http.header.BasicNameValuePair;
+import kr.skyware.commons.http.json.SkyJsonStreamerEntity;
+import kr.skyware.commons.http.util.HTTP;
 
 public class RequestParams implements Serializable {
     public final static String APPLICATION_OCTET_STREAM =
@@ -102,7 +101,7 @@ public class RequestParams implements Serializable {
      * Sets content encoding for return value of {@link #getParamString()} and {@link
      * #createFormEntity()} <p>&nbsp;</p> Default encoding is "UTF-8"
      *
-     * @param encoding String constant from {@link HTTP}
+     * @param encoding String constant from {@link kr.skyware.commons.http.util.HTTP}
      */
     public void setContentEncoding(final String encoding) {
         if (encoding != null) {
@@ -444,7 +443,7 @@ public class RequestParams implements Serializable {
      *
      * @param progressHandler HttpResponseHandler for reporting progress on entity submit
      * @return HttpEntity resulting HttpEntity to be included along with {@link
-     * cz.msebera.android.httpclient.client.methods.HttpEntityEnclosingRequestBase}
+     * kr.skyware.commons.http.method.HttpEntityEnclosingRequestBase}
      * @throws IOException if one of the streams cannot be read
      */
     public HttpEntity getEntity(ResponseHandlerInterface progressHandler) throws IOException {
@@ -458,7 +457,7 @@ public class RequestParams implements Serializable {
     }
 
     private HttpEntity createJsonStreamerEntity(ResponseHandlerInterface progressHandler) throws IOException {
-        JsonStreamerEntity entity = new JsonStreamerEntity(
+        SkyJsonStreamerEntity entity = new SkyJsonStreamerEntity(
                 progressHandler,
                 !fileParams.isEmpty() || !streamParams.isEmpty(),
                 elapsedFieldInJsonStreamer);
