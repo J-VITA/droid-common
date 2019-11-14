@@ -30,4 +30,11 @@ public class Utils {
         }
         return argument;
     }
+
+    public static boolean isEmpty(final Object argment) {
+        if (argment == null) {
+            return true;
+        }
+        return false;
+    }
 }
