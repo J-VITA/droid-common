@@ -13,6 +13,7 @@ implementation 'com.skyware:droid-commons:1.0.1-RELEASE'
 * 스크립트 추가 Maven
 <pre>
 <code>
+```gradle
 buildscript {
     repositories {
         ...
@@ -20,13 +21,15 @@ buildscript {
     }
     ...
 }
-
+```
+```gradle
 allprojects {
     repositories {
         ...
         maven {url "http://1.221.205.250:9495/nexus/content/repositories/releases"}	//<-- 추가
     }
 }
+```
 </code>
 </pre>
 ---
@@ -35,6 +38,7 @@ allprojects {
 * (sendNotification은 디바이스에 노티알림을 위한 메서드임.)
 <pre>
 <code>
+```java
 SkyNotification noti = new SkyNotification();
 HashMap<String, String> info = new HashMap<>();
 info.put("title", "타이틀");
@@ -44,12 +48,14 @@ info.put("body", "바디");
 * @params HashMap, Context, (int)icon, (android.net.Uri) sound
 **/
 noti.sendNotification(info, mContext, R.mipmap.ic_launcher, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+```
 </code>
 </pre>
 ---
 * **SkyAsyncHttpClient**
 <pre>
 <code>
+```java
 //사용 예시 : get method
 public static void get(String url, RequestParams params, SkyAsyncHttpResponseHandler responseHandler)  {
     client.get(getAbsoluteUrl(url), params, responseHandler);
@@ -67,7 +73,7 @@ get("{url}", params, new SkyJsonHttpResponseHandler(){
     }
     ...
 });
-
+```
 ※ post, put, delete 등 각 HTTP METHOD별 사용하기 편리하게 구현하여 사용하면 됨.
 </code>
 </pre>
