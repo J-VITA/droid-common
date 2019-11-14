@@ -86,7 +86,7 @@ Class | 의미
 
 
 ---
-> created by jayKim
-> 인용 : AsycHttp & cz_msebera_android_httpclient 4.3.*
+> created by jayKim. <br/>
+> 인용 : cz_msebera_android_httpclient 4.3.* (안드로이드 라이브러리) <br/>
 > _(지속적으로 입맛에 맞게 변경하여 사용하기)_
 ---
