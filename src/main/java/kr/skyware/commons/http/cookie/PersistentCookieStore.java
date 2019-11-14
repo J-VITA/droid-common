@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
-import kr.skyware.commons.http.AsyncHttpClient;
+import kr.skyware.commons.http.SkyAsyncHttpClient;
 
 /**
  * A persistent cookie store which implements the Apache HttpClient {@link CookieStore} interface.
  * Cookies are stored and will persist on the user's device between application sessions since they
  * are serialized and stored in {@link SharedPreferences}. <p>&nbsp;</p> Instances of this class are
- * designed to be used with {@link AsyncHttpClient#setCookieStore}, but can also be used with a
+ * designed to be used with {@link SkyAsyncHttpClient#setCookieStore}, but can also be used with a
  * regular old apache HttpClient/HttpContext if you prefer.
  */
 public class PersistentCookieStore implements CookieStore {
@@ -166,7 +166,7 @@ public class PersistentCookieStore implements CookieStore {
             ObjectOutputStream outputStream = new ObjectOutputStream(os);
             outputStream.writeObject(cookie);
         } catch (IOException e) {
-            AsyncHttpClient.log.d(LOG_TAG, "IOException in encodeCookie", e);
+            SkyAsyncHttpClient.log.d(LOG_TAG, "IOException in encodeCookie", e);
             return null;
         }
 
@@ -187,9 +187,9 @@ public class PersistentCookieStore implements CookieStore {
             ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
             cookie = ((SerializableCookie) objectInputStream.readObject()).getCookie();
         } catch (IOException e) {
-            AsyncHttpClient.log.d(LOG_TAG, "IOException in decodeCookie", e);
+            SkyAsyncHttpClient.log.d(LOG_TAG, "IOException in decodeCookie", e);
         } catch (ClassNotFoundException e) {
-            AsyncHttpClient.log.d(LOG_TAG, "ClassNotFoundException in decodeCookie", e);
+            SkyAsyncHttpClient.log.d(LOG_TAG, "ClassNotFoundException in decodeCookie", e);
         }
 
         return cookie;

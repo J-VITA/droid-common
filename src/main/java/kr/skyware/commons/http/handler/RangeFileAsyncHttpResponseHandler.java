@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-import kr.skyware.commons.http.AsyncHttpClient;
+import kr.skyware.commons.http.SkyAsyncHttpClient;
 import kr.skyware.commons.http.HttpEntity;
 import kr.skyware.commons.http.HttpResponse;
 import kr.skyware.commons.http.exception.HttpResponseException;
@@ -43,12 +43,12 @@ public abstract class RangeFileAsyncHttpResponseHandler extends FileAsyncHttpRes
                     sendFailureMessage(status.getStatusCode(), response.getAllHeaders(), null, new HttpResponseException(status.getStatusCode(), status.getReasonPhrase()));
             } else {
                 if (!Thread.currentThread().isInterrupted()) {
-                    Header header = response.getFirstHeader(AsyncHttpClient.HEADER_CONTENT_RANGE);
+                    Header header = response.getFirstHeader(SkyAsyncHttpClient.HEADER_CONTENT_RANGE);
                     if (header == null) {
                         append = false;
                         current = 0;
                     } else {
-                        AsyncHttpClient.log.v(LOG_TAG, AsyncHttpClient.HEADER_CONTENT_RANGE + ": " + header.getValue());
+                        SkyAsyncHttpClient.log.v(LOG_TAG, SkyAsyncHttpClient.HEADER_CONTENT_RANGE + ": " + header.getValue());
                     }
                     sendSuccessMessage(status.getStatusCode(), response.getAllHeaders(), getResponseData(response.getEntity()));
                 }

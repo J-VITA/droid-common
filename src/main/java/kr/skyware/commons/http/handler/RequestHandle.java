@@ -4,13 +4,13 @@ import android.os.Looper;
 
 import java.lang.ref.WeakReference;
 
-import kr.skyware.commons.http.AsyncHttpRequest;
+import kr.skyware.commons.http.SkyAsyncHttpRequest;
 
 public class RequestHandle {
-    private final WeakReference<AsyncHttpRequest> request;
+    private final WeakReference<SkyAsyncHttpRequest> request;
 
-    public RequestHandle(AsyncHttpRequest request) {
-        this.request = new WeakReference<AsyncHttpRequest>(request);
+    public RequestHandle(SkyAsyncHttpRequest request) {
+        this.request = new WeakReference<SkyAsyncHttpRequest>(request);
     }
 
     /**
@@ -30,7 +30,7 @@ public class RequestHandle {
      * completed normally; true otherwise
      */
     public boolean cancel(final boolean mayInterruptIfRunning) {
-        final AsyncHttpRequest _request = request.get();
+        final SkyAsyncHttpRequest _request = request.get();
         if (_request != null) {
             if (Looper.myLooper() == Looper.getMainLooper()) {
                 new Thread(new Runnable() {
@@ -56,7 +56,7 @@ public class RequestHandle {
      * @return true if this task completed
      */
     public boolean isFinished() {
-        AsyncHttpRequest _request = request.get();
+        SkyAsyncHttpRequest _request = request.get();
         return _request == null || _request.isDone();
     }
 
@@ -66,7 +66,7 @@ public class RequestHandle {
      * @return true if this task was cancelled before it completed
      */
     public boolean isCancelled() {
-        AsyncHttpRequest _request = request.get();
+        SkyAsyncHttpRequest _request = request.get();
         return _request == null || _request.isCancelled();
     }
 
@@ -78,23 +78,23 @@ public class RequestHandle {
     }
 
     /**
-     * Will return TAG of underlying AsyncHttpRequest if it's not already GCed
+     * Will return TAG of underlying SkyAsyncHttpRequest if it's not already GCed
      *
      * @return Object TAG, can be null
      */
     public Object getTag() {
-        AsyncHttpRequest _request = request.get();
+        SkyAsyncHttpRequest _request = request.get();
         return _request == null ? null : _request.getTag();
     }
 
     /**
-     * Will set Object as TAG to underlying AsyncHttpRequest
+     * Will set Object as TAG to underlying SkyAsyncHttpRequest
      *
-     * @param tag Object used as TAG to underlying AsyncHttpRequest
+     * @param tag Object used as TAG to underlying SkyAsyncHttpRequest
      * @return this RequestHandle to allow fluid syntax
      */
     public RequestHandle setTag(Object tag) {
-        AsyncHttpRequest _request = request.get();
+        SkyAsyncHttpRequest _request = request.get();
         if (_request != null)
             _request.setRequestTag(tag);
         return this;

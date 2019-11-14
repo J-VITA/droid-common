@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.zip.GZIPOutputStream;
 
-import kr.skyware.commons.http.AsyncHttpClient;
+import kr.skyware.commons.http.SkyAsyncHttpClient;
 import kr.skyware.commons.http.HttpEntity;
 import kr.skyware.commons.http.RequestParams;
 import kr.skyware.commons.http.handler.ResponseHandlerInterface;
@@ -37,12 +37,12 @@ public class SkyJsonStreamerEntity implements HttpEntity {
     private static final byte[] STREAM_CONTENTS = escape("contents");
     private static final Header HEADER_JSON_CONTENT =
             new BasicHeader(
-                    AsyncHttpClient.HEADER_CONTENT_TYPE,
+                    SkyAsyncHttpClient.HEADER_CONTENT_TYPE,
                     RequestParams.APPLICATION_JSON);
     private static final Header HEADER_GZIP_ENCODING =
             new BasicHeader(
-                    AsyncHttpClient.HEADER_CONTENT_ENCODING,
-                    AsyncHttpClient.ENCODING_GZIP);
+                    SkyAsyncHttpClient.HEADER_CONTENT_ENCODING,
+                    SkyAsyncHttpClient.ENCODING_GZIP);
     // Buffer used for reading from input streams.
     private final byte[] buffer = new byte[BUFFER_SIZE];
     // JSON data and associated meta-data to be uploaded.
@@ -274,7 +274,7 @@ public class SkyJsonStreamerEntity implements HttpEntity {
                 os.write((elapsedTime + "").getBytes());
             }
 
-            AsyncHttpClient.log.i(LOG_TAG, "Uploaded JSON in " + Math.floor(elapsedTime / 1000) + " seconds");
+            SkyAsyncHttpClient.log.i(LOG_TAG, "Uploaded JSON in " + Math.floor(elapsedTime / 1000) + " seconds");
         }
 
         // Close the JSON object.
@@ -282,7 +282,7 @@ public class SkyJsonStreamerEntity implements HttpEntity {
 
         // Flush the contents up the stream.
         os.flush();
-        AsyncHttpClient.silentCloseOutputStream(os);
+        SkyAsyncHttpClient.silentCloseOutputStream(os);
     }
 
     private void writeToFromStream(OutputStream os, RequestParams.StreamWrapper entry)
@@ -303,7 +303,7 @@ public class SkyJsonStreamerEntity implements HttpEntity {
         }
 
         // Close the Base64 output stream.
-        AsyncHttpClient.silentCloseOutputStream(bos);
+        SkyAsyncHttpClient.silentCloseOutputStream(bos);
 
         // End the meta data.
         endMetaData(os);
@@ -311,7 +311,7 @@ public class SkyJsonStreamerEntity implements HttpEntity {
         // Close input stream.
         if (entry.autoClose) {
             // Safely close the input stream.
-            AsyncHttpClient.silentCloseInputStream(entry.inputStream);
+            SkyAsyncHttpClient.silentCloseInputStream(entry.inputStream);
         }
     }
 
@@ -339,13 +339,13 @@ public class SkyJsonStreamerEntity implements HttpEntity {
         }
 
         // Close the Base64 output stream.
-        AsyncHttpClient.silentCloseOutputStream(bos);
+        SkyAsyncHttpClient.silentCloseOutputStream(bos);
 
         // End the meta data.
         endMetaData(os);
 
         // Safely close the input stream.
-        AsyncHttpClient.silentCloseInputStream(in);
+        SkyAsyncHttpClient.silentCloseInputStream(in);
     }
 
     private void writeMetaData(OutputStream os, String name, String contentType) throws IOException {

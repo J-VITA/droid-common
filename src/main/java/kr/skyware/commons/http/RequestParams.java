@@ -107,7 +107,7 @@ public class RequestParams implements Serializable {
         if (encoding != null) {
             this.contentEncoding = encoding;
         } else {
-            AsyncHttpClient.log.d(LOG_TAG, "setContentEncoding called with null attribute");
+            SkyAsyncHttpClient.log.d(LOG_TAG, "setContentEncoding called with null attribute");
         }
     }
 
@@ -498,7 +498,7 @@ public class RequestParams implements Serializable {
         try {
             return new UrlEncodedFormEntity(getParamsList(), contentEncoding);
         } catch (UnsupportedEncodingException e) {
-            AsyncHttpClient.log.e(LOG_TAG, "createFormEntity failed", e);
+            SkyAsyncHttpClient.log.e(LOG_TAG, "createFormEntity failed", e);
             return null; // Can happen, if the 'contentEncoding' won't be HTTP.UTF_8
         }
     }

@@ -8,7 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 
-import kr.skyware.commons.http.AsyncHttpClient;
+import kr.skyware.commons.http.SkyAsyncHttpClient;
 import kr.skyware.commons.http.RequestParams;
 import kr.skyware.commons.http.entity.StringEntity;
 import kr.skyware.commons.http.handler.AsyncHttpResponseHandler;
@@ -23,7 +23,7 @@ public class SkywareRequest{
 
     public static String BASE_URL;
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static SkyAsyncHttpClient client = new SkyAsyncHttpClient();
 
     private static SkywareRequest singleton;
 

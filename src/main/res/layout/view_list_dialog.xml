@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:background="#00000000"
+    android:textColor="#000000"
+    android:orientation="vertical">
+    <!-- android:background="@drawable/popup_rectangle" -->
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="328dp"
+        android:layout_height="43dp"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="visible"
+        android:background="@mipmap/popup_top"
+        />
+
+    <LinearLayout
+        android:layout_width="328dp"
+        android:layout_height="236dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@mipmap/popup_medium">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="328dp"
+            android:layout_height="191dp"
+            android:divider="#FFFFFF"
+            android:dividerHeight="1dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:visibility="visible"/>
+
+        <LinearLayout
+            android:layout_width="328dp"
+            android:layout_height="60dp">
+
+            <Button
+                android:id="@+id/pos_button"
+                android:layout_width="328dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/selector_popup_btn_bg2"
+                android:textColor="@drawable/selector_popup_btn_text"
+                android:paddingBottom="7dp"
+                android:textSize="18sp"
+                android:visibility="visible" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

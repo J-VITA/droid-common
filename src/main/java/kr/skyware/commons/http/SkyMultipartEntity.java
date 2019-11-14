@@ -65,7 +65,7 @@ public class SkyMultipartEntity implements HttpEntity {
             out.write(CR_LF);
         } catch (final IOException e) {
             // Shall not happen on ByteArrayOutputStream
-            AsyncHttpClient.log.e(LOG_TAG, "addPart ByteArrayOutputStream exception", e);
+            SkyAsyncHttpClient.log.e(LOG_TAG, "addPart ByteArrayOutputStream exception", e);
         }
     }
 
@@ -117,19 +117,19 @@ public class SkyMultipartEntity implements HttpEntity {
     }
 
     private byte[] createContentType(String type) {
-        String result = AsyncHttpClient.HEADER_CONTENT_TYPE + ": " + normalizeContentType(type) + STR_CR_LF;
+        String result = SkyAsyncHttpClient.HEADER_CONTENT_TYPE + ": " + normalizeContentType(type) + STR_CR_LF;
         return result.getBytes();
     }
 
     private byte[] createContentDisposition(String key) {
         return (
-                AsyncHttpClient.HEADER_CONTENT_DISPOSITION +
+                SkyAsyncHttpClient.HEADER_CONTENT_DISPOSITION +
                         ": form-data; name=\"" + key + "\"" + STR_CR_LF).getBytes();
     }
 
     private byte[] createContentDisposition(String key, String fileName) {
         return (
-                AsyncHttpClient.HEADER_CONTENT_DISPOSITION +
+                SkyAsyncHttpClient.HEADER_CONTENT_DISPOSITION +
                         ": form-data; name=\"" + key + "\"" +
                         "; filename=\"" + fileName + "\"" + STR_CR_LF).getBytes();
     }
@@ -158,7 +158,7 @@ public class SkyMultipartEntity implements HttpEntity {
     @Override
     public Header getContentType() {
         return new BasicHeader(
-                AsyncHttpClient.HEADER_CONTENT_TYPE,
+                SkyAsyncHttpClient.HEADER_CONTENT_TYPE,
                 "multipart/form-data; boundary=" + boundary);
     }
 
@@ -240,7 +240,7 @@ public class SkyMultipartEntity implements HttpEntity {
                 headerStream.write(CR_LF);
             } catch (IOException e) {
                 // Can't happen on ByteArrayOutputStream
-                AsyncHttpClient.log.e(LOG_TAG, "createHeader ByteArrayOutputStream exception", e);
+                SkyAsyncHttpClient.log.e(LOG_TAG, "createHeader ByteArrayOutputStream exception", e);
             }
             return headerStream.toByteArray();
         }
@@ -264,7 +264,7 @@ public class SkyMultipartEntity implements HttpEntity {
             out.write(CR_LF);
             updateProgress(CR_LF.length);
             out.flush();
-            AsyncHttpClient.silentCloseInputStream(inputStream);
+            SkyAsyncHttpClient.silentCloseInputStream(inputStream);
         }
     }
 }

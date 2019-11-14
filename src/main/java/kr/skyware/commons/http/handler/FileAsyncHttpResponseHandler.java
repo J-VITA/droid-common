@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-import kr.skyware.commons.http.AsyncHttpClient;
+import kr.skyware.commons.http.SkyAsyncHttpClient;
 import kr.skyware.commons.http.HttpEntity;
 import kr.skyware.commons.http.header.Header;
 import kr.skyware.commons.util.Utils;
@@ -67,7 +67,7 @@ public abstract class FileAsyncHttpResponseHandler extends AsyncHttpResponseHand
         }
         if (file.isDirectory()) {
             if (!file.mkdirs()) {
-                AsyncHttpClient.log.d(LOG_TAG, "Cannot create directories for requested Directory location, might not be a problem");
+                SkyAsyncHttpClient.log.d(LOG_TAG, "Cannot create directories for requested Directory location, might not be a problem");
             }
         }
         this.file = file;
@@ -107,7 +107,7 @@ public abstract class FileAsyncHttpResponseHandler extends AsyncHttpResponseHand
         try {
             return File.createTempFile("temp_", "_handled", context.getCacheDir());
         } catch (IOException e) {
-            AsyncHttpClient.log.e(LOG_TAG, "Cannot create temporary file", e);
+            SkyAsyncHttpClient.log.e(LOG_TAG, "Cannot create temporary file", e);
         }
         return null;
     }
@@ -213,9 +213,9 @@ public abstract class FileAsyncHttpResponseHandler extends AsyncHttpResponseHand
                         sendProgressMessage(count, contentLength);
                     }
                 } finally {
-                    AsyncHttpClient.silentCloseInputStream(instream);
+                    SkyAsyncHttpClient.silentCloseInputStream(instream);
                     buffer.flush();
-                    AsyncHttpClient.silentCloseOutputStream(buffer);
+                    SkyAsyncHttpClient.silentCloseOutputStream(buffer);
                 }
             }
         }

@@ -14,7 +14,7 @@ import kr.skyware.commons.http.header.HttpContext;
 import kr.skyware.commons.http.header.HttpUriRequest;
 import kr.skyware.commons.util.Utils;
 
-public class AsyncHttpRequest implements Runnable {
+public class SkyAsyncHttpRequest implements Runnable {
     private final AbstractHttpClient client;
     private final HttpContext context;
     private final HttpUriRequest request;
@@ -25,7 +25,7 @@ public class AsyncHttpRequest implements Runnable {
     private volatile boolean isFinished;
     private boolean isRequestPreProcessed;
 
-    public AsyncHttpRequest(AbstractHttpClient client, HttpContext context, HttpUriRequest request, ResponseHandlerInterface responseHandler) {
+    public SkyAsyncHttpRequest(AbstractHttpClient client, HttpContext context, HttpUriRequest request, ResponseHandlerInterface responseHandler) {
         this.client = Utils.notNull(client, "client");
         this.context = Utils.notNull(context, "context");
         this.request = Utils.notNull(request, "request");
@@ -43,7 +43,7 @@ public class AsyncHttpRequest implements Runnable {
      *
      * @param request The request to pre-process
      */
-    public void onPreProcessRequest(AsyncHttpRequest request) {
+    public void onPreProcessRequest(SkyAsyncHttpRequest request) {
         // default action is to do nothing...
     }
 
@@ -58,7 +58,7 @@ public class AsyncHttpRequest implements Runnable {
      *
      * @param request The request to post-process
      */
-    public void onPostProcessRequest(AsyncHttpRequest request) {
+    public void onPostProcessRequest(SkyAsyncHttpRequest request) {
         // default action is to do nothing...
     }
 
@@ -90,7 +90,7 @@ public class AsyncHttpRequest implements Runnable {
             if (!isCancelled()) {
                 responseHandler.sendFailureMessage(0, null, null, e);
             } else {
-                AsyncHttpClient.log.e("AsyncHttpRequest", "makeRequestWithRetries returned error", e);
+                SkyAsyncHttpClient.log.e("SkyAsyncHttpRequest", "makeRequestWithRetries returned error", e);
             }
         }
 
@@ -184,7 +184,7 @@ public class AsyncHttpRequest implements Runnable {
             }
         } catch (Exception e) {
             // catch anything else to ensure failure message is propagated
-            AsyncHttpClient.log.e("AsyncHttpRequest", "Unhandled exception origin cause", e);
+            SkyAsyncHttpClient.log.e("SkyAsyncHttpRequest", "Unhandled exception origin cause", e);
             cause = new IOException("Unhandled exception: " + e.getMessage());
         }
 
@@ -221,15 +221,15 @@ public class AsyncHttpRequest implements Runnable {
      * Will set Object as TAG to this request, wrapped by WeakReference
      *
      * @param TAG Object used as TAG to this RequestHandle
-     * @return this AsyncHttpRequest to allow fluid syntax
+     * @return this SkyAsyncHttpRequest to allow fluid syntax
      */
-    public AsyncHttpRequest setRequestTag(Object TAG) {
+    public SkyAsyncHttpRequest setRequestTag(Object TAG) {
         this.responseHandler.setTag(TAG);
         return this;
     }
 
     /**
-     * Will return TAG of this AsyncHttpRequest
+     * Will return TAG of this SkyAsyncHttpRequest
      *
      * @return Object TAG, can be null, if it's been already garbage collected
      */

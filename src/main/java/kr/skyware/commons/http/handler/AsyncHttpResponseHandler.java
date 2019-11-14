@@ -10,7 +10,7 @@ import java.lang.ref.WeakReference;
 import java.net.URI;
 
 
-import kr.skyware.commons.http.AsyncHttpClient;
+import kr.skyware.commons.http.SkyAsyncHttpClient;
 import kr.skyware.commons.http.HttpEntity;
 import kr.skyware.commons.http.HttpResponse;
 import kr.skyware.commons.http.exception.HttpResponseException;
@@ -125,7 +125,7 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
         // A looper must be prepared before setting asynchronous mode.
         if (!sync && looper == null) {
             sync = true;
-            AsyncHttpClient.log.w(LOG_TAG, "Current thread has not called Looper.prepare(). Forcing synchronous mode.");
+            SkyAsyncHttpClient.log.w(LOG_TAG, "Current thread has not called Looper.prepare(). Forcing synchronous mode.");
         }
 
         // If using asynchronous mode.
@@ -178,7 +178,7 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
      * @param totalSize    total size of file
      */
     public void onProgress(long bytesWritten, long totalSize) {
-        AsyncHttpClient.log.v(LOG_TAG, String.format("Progress %d from %d (%2.0f%%)", bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+        SkyAsyncHttpClient.log.v(LOG_TAG, String.format("Progress %d from %d (%2.0f%%)", bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
     }
 
     /**
@@ -231,15 +231,15 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
      * @param retryNo number of retry
      */
     public void onRetry(int retryNo) {
-        AsyncHttpClient.log.d(LOG_TAG, String.format("Request retry no. %d", retryNo));
+        SkyAsyncHttpClient.log.d(LOG_TAG, String.format("Request retry no. %d", retryNo));
     }
 
     public void onCancel() {
-        AsyncHttpClient.log.d(LOG_TAG, "Request got cancelled");
+        SkyAsyncHttpClient.log.d(LOG_TAG, "Request got cancelled");
     }
 
     public void onUserException(Throwable error) {
-        AsyncHttpClient.log.e(LOG_TAG, "User-space exception detected!", error);
+        SkyAsyncHttpClient.log.e(LOG_TAG, "User-space exception detected!", error);
         throw new RuntimeException(error);
     }
 
@@ -289,7 +289,7 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
                     if (response != null && response.length >= 3) {
                         onSuccess((Integer) response[0], (Header[]) response[1], (byte[]) response[2]);
                     } else {
-                        AsyncHttpClient.log.e(LOG_TAG, "SUCCESS_MESSAGE didn't got enough params");
+                        SkyAsyncHttpClient.log.e(LOG_TAG, "SUCCESS_MESSAGE didn't got enough params");
                     }
                     break;
                 case FAILURE_MESSAGE:
@@ -297,7 +297,7 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
                     if (response != null && response.length >= 4) {
                         onFailure((Integer) response[0], (Header[]) response[1], (byte[]) response[2], (Throwable) response[3]);
                     } else {
-                        AsyncHttpClient.log.e(LOG_TAG, "FAILURE_MESSAGE didn't got enough params");
+                        SkyAsyncHttpClient.log.e(LOG_TAG, "FAILURE_MESSAGE didn't got enough params");
                     }
                     break;
                 case START_MESSAGE:
@@ -312,10 +312,10 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
                         try {
                             onProgress((Long) response[0], (Long) response[1]);
                         } catch (Throwable t) {
-                            AsyncHttpClient.log.e(LOG_TAG, "custom onProgress contains an error", t);
+                            SkyAsyncHttpClient.log.e(LOG_TAG, "custom onProgress contains an error", t);
                         }
                     } else {
-                        AsyncHttpClient.log.e(LOG_TAG, "PROGRESS_MESSAGE didn't got enough params");
+                        SkyAsyncHttpClient.log.e(LOG_TAG, "PROGRESS_MESSAGE didn't got enough params");
                     }
                     break;
                 case RETRY_MESSAGE:
@@ -323,7 +323,7 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
                     if (response != null && response.length == 1) {
                         onRetry((Integer) response[0]);
                     } else {
-                        AsyncHttpClient.log.e(LOG_TAG, "RETRY_MESSAGE didn't get enough params");
+                        SkyAsyncHttpClient.log.e(LOG_TAG, "RETRY_MESSAGE didn't get enough params");
                     }
                     break;
                 case CANCEL_MESSAGE:
@@ -420,8 +420,8 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
                             sendProgressMessage(count, (contentLength <= 0 ? 1 : contentLength));
                         }
                     } finally {
-                        AsyncHttpClient.silentCloseInputStream(instream);
-                        AsyncHttpClient.endEntityViaReflection(entity);
+                        SkyAsyncHttpClient.silentCloseInputStream(instream);
+                        SkyAsyncHttpClient.endEntityViaReflection(entity);
                     }
                     responseBody = buffer.toByteArray();
                 } catch (OutOfMemoryError e) {

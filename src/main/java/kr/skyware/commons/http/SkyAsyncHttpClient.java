@@ -82,8 +82,8 @@ import kr.skyware.commons.http.util.HttpVersion;
 import kr.skyware.commons.util.Utils;
 
 
-public class AsyncHttpClient {
-    public static final String LOG_TAG = AsyncHttpClient.class.getSimpleName();
+public class SkyAsyncHttpClient {
+    public static final String LOG_TAG = SkyAsyncHttpClient.class.getSimpleName();
 
     public static final String HEADER_CONTENT_TYPE = "Content-Type";
     public static final String HEADER_CONTENT_RANGE = "Content-Range";
@@ -109,48 +109,48 @@ public class AsyncHttpClient {
     private boolean isUrlEncodingEnabled = true;
 
     /**
-     * Creates a new AsyncHttpClient with default constructor arguments values
+     * Creates a new SkyAsyncHttpClient with default constructor arguments values
      */
-    public AsyncHttpClient() {
+    public SkyAsyncHttpClient() {
         this(false, 80, 443);
     }
 
     /**
-     * Creates a new AsyncHttpClient.
+     * Creates a new SkyAsyncHttpClient.
      *
      * @param httpPort non-standard HTTP-only port
      */
-    public AsyncHttpClient(int httpPort) {
+    public SkyAsyncHttpClient(int httpPort) {
         this(false, httpPort, 443);
     }
 
     /**
-     * Creates a new AsyncHttpClient.
+     * Creates a new SkyAsyncHttpClient.
      *
      * @param httpPort  non-standard HTTP-only port
      * @param httpsPort non-standard HTTPS-only port
      */
-    public AsyncHttpClient(int httpPort, int httpsPort) {
+    public SkyAsyncHttpClient(int httpPort, int httpsPort) {
         this(false, httpPort, httpsPort);
     }
 
     /**
-     * Creates new AsyncHttpClient using given params
+     * Creates new SkyAsyncHttpClient using given params
      *
      * @param fixNoHttpResponseException Whether to fix issue or not, by omitting SSL verification
      * @param httpPort                   HTTP port to be used, must be greater than 0
      * @param httpsPort                  HTTPS port to be used, must be greater than 0
      */
-    public AsyncHttpClient(boolean fixNoHttpResponseException, int httpPort, int httpsPort) {
+    public SkyAsyncHttpClient(boolean fixNoHttpResponseException, int httpPort, int httpsPort) {
         this(getDefaultSchemeRegistry(fixNoHttpResponseException, httpPort, httpsPort));
     }
 
     /**
-     * Creates a new AsyncHttpClient.
+     * Creates a new SkyAsyncHttpClient.
      *
      * @param schemeRegistry SchemeRegistry to be used
      */
-    public AsyncHttpClient(SchemeRegistry schemeRegistry) {
+    public SkyAsyncHttpClient(SchemeRegistry schemeRegistry) {
 
         BasicHttpParams httpParams = new BasicHttpParams();
 
@@ -476,9 +476,9 @@ public class AsyncHttpClient {
     }
 
     /**
-     * Will return current LogInterface used in AsyncHttpClient instance
+     * Will return current LogInterface used in SkyAsyncHttpClient instance
      *
-     * @return LogInterface currently used by AsyncHttpClient instance
+     * @return LogInterface currently used by SkyAsyncHttpClient instance
      */
     public LogInterface getLogInterface() {
         return log;
@@ -486,7 +486,7 @@ public class AsyncHttpClient {
 
     /**
      * Sets default LogInterface (similar to std Android Log util class) instance,
-     * to be used in AsyncHttpClient instance
+     * to be used in SkyAsyncHttpClient instance
      *
      * @param logInterfaceInstance LogInterface instance, if null, nothing is done
      */
@@ -733,7 +733,7 @@ public class AsyncHttpClient {
     }
 
     /**
-     * Will, before sending, remove all headers currently present in AsyncHttpClient instance, which
+     * Will, before sending, remove all headers currently present in SkyAsyncHttpClient instance, which
      * applies on all requests this client makes
      */
     public void removeAllHeaders() {
@@ -819,7 +819,7 @@ public class AsyncHttpClient {
 
     /**
      * Sets HttpRequestInterceptor which handles authorization in preemptive way, as workaround you
-     * can use call `AsyncHttpClient.addHeader("Authorization","Basic base64OfUsernameAndPassword==")`
+     * can use call `SkyAsyncHttpClient.addHeader("Authorization","Basic base64OfUsernameAndPassword==")`
      *
      * @param isPreemptive whether the authorization is processed in preemptive way
      */
@@ -1430,10 +1430,10 @@ public class AsyncHttpClient {
      * @param responseHandler ResponseHandler or its subclass to put the response into
      * @param uriRequest      instance of HttpUriRequest, which means it must be of HttpDelete,
      *                        HttpPost, HttpGet, HttpPut, etc.
-     * @return AsyncHttpRequest ready to be dispatched
+     * @return SkyAsyncHttpRequest ready to be dispatched
      */
-    protected AsyncHttpRequest newAsyncHttpRequest(DefaultHttpClient client, HttpContext httpContext, HttpUriRequest uriRequest, String contentType, ResponseHandlerInterface responseHandler, Context context) {
-        return new AsyncHttpRequest(client, httpContext, uriRequest, responseHandler);
+    protected SkyAsyncHttpRequest newAsyncHttpRequest(DefaultHttpClient client, HttpContext httpContext, HttpUriRequest uriRequest, String contentType, ResponseHandlerInterface responseHandler, Context context) {
+        return new SkyAsyncHttpRequest(client, httpContext, uriRequest, responseHandler);
     }
 
     /**
@@ -1458,7 +1458,7 @@ public class AsyncHttpClient {
         }
 
         if (responseHandler.getUseSynchronousMode() && !responseHandler.getUsePoolThread()) {
-            throw new IllegalArgumentException("Synchronous ResponseHandler used in AsyncHttpClient. You should create your response handler in a looper thread or use SyncHttpClient instead.");
+            throw new IllegalArgumentException("Synchronous ResponseHandler used in SkyAsyncHttpClient. You should create your response handler in a looper thread or use SyncHttpClient instead.");
         }
 
         if (contentType != null) {
@@ -1472,7 +1472,7 @@ public class AsyncHttpClient {
         responseHandler.setRequestHeaders(uriRequest.getAllHeaders());
         responseHandler.setRequestURI(uriRequest.getURI());
 
-        AsyncHttpRequest request = newAsyncHttpRequest(client, httpContext, uriRequest, contentType, responseHandler, context);
+        SkyAsyncHttpRequest request = newAsyncHttpRequest(client, httpContext, uriRequest, contentType, responseHandler, context);
         threadPool.submit(request);
         RequestHandle requestHandle = new RequestHandle(request);
 
@@ -1596,9 +1596,9 @@ public class AsyncHttpClient {
 
         @Override
         public void consumeContent() throws IOException {
-            AsyncHttpClient.silentCloseInputStream(wrappedStream);
-            AsyncHttpClient.silentCloseInputStream(pushbackStream);
-            AsyncHttpClient.silentCloseInputStream(gzippedStream);
+            SkyAsyncHttpClient.silentCloseInputStream(wrappedStream);
+            SkyAsyncHttpClient.silentCloseInputStream(pushbackStream);
+            SkyAsyncHttpClient.silentCloseInputStream(gzippedStream);
             super.consumeContent();
         }
     }

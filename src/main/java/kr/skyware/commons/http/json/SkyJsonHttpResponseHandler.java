@@ -5,12 +5,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import kr.skyware.commons.http.AsyncHttpClient;
+import kr.skyware.commons.http.SkyAsyncHttpClient;
 import kr.skyware.commons.http.header.Header;
 import kr.skyware.commons.http.util.HttpStatus;
 
 /**
- * Used to intercept and handle the responses from requests made using {@link kr.skyware.commons.http.AsyncHttpClient}, with
+ * Used to intercept and handle the responses from requests made using {@link SkyAsyncHttpClient}, with
  * automatic parsing into a {@link JSONObject} or {@link JSONArray}. <p>&nbsp;</p> This class is
  * designed to be passed to get, post, put and delete requests with the {@link #onSuccess(int,
  * kr.skyware.commons.http.header.Header[], org.json.JSONArray)} or {@link #onSuccess(int,
@@ -69,7 +69,7 @@ public class SkyJsonHttpResponseHandler extends SkyTextHttpResponseHandler {
      * @param response   parsed response if any
      */
     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-        AsyncHttpClient.log.w(LOG_TAG, "onSuccess(int, Header[], JSONObject) was not overriden, but callback was received");
+        SkyAsyncHttpClient.log.w(LOG_TAG, "onSuccess(int, Header[], JSONObject) was not overriden, but callback was received");
     }
 
     /**
@@ -80,7 +80,7 @@ public class SkyJsonHttpResponseHandler extends SkyTextHttpResponseHandler {
      * @param response   parsed response if any
      */
     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-        AsyncHttpClient.log.w(LOG_TAG, "onSuccess(int, Header[], JSONArray) was not overriden, but callback was received");
+        SkyAsyncHttpClient.log.w(LOG_TAG, "onSuccess(int, Header[], JSONArray) was not overriden, but callback was received");
     }
 
     /**
@@ -92,7 +92,7 @@ public class SkyJsonHttpResponseHandler extends SkyTextHttpResponseHandler {
      * @param errorResponse parsed response if any
      */
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-        AsyncHttpClient.log.w(LOG_TAG, "onFailure(int, Header[], Throwable, JSONObject) was not overriden, but callback was received", throwable);
+        SkyAsyncHttpClient.log.w(LOG_TAG, "onFailure(int, Header[], Throwable, JSONObject) was not overriden, but callback was received", throwable);
     }
 
     /**
@@ -104,17 +104,17 @@ public class SkyJsonHttpResponseHandler extends SkyTextHttpResponseHandler {
      * @param errorResponse parsed response if any
      */
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-        AsyncHttpClient.log.w(LOG_TAG, "onFailure(int, Header[], Throwable, JSONArray) was not overriden, but callback was received", throwable);
+        SkyAsyncHttpClient.log.w(LOG_TAG, "onFailure(int, Header[], Throwable, JSONArray) was not overriden, but callback was received", throwable);
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-        AsyncHttpClient.log.w(LOG_TAG, "onFailure(int, Header[], String, Throwable) was not overriden, but callback was received", throwable);
+        SkyAsyncHttpClient.log.w(LOG_TAG, "onFailure(int, Header[], String, Throwable) was not overriden, but callback was received", throwable);
     }
 
     @Override
     public void onSuccess(int statusCode, Header[] headers, String responseString) {
-        AsyncHttpClient.log.w(LOG_TAG, "onSuccess(int, Header[], String) was not overriden, but callback was received");
+        SkyAsyncHttpClient.log.w(LOG_TAG, "onSuccess(int, Header[], String) was not overriden, but callback was received");
     }
 
     @Override
@@ -212,7 +212,7 @@ public class SkyJsonHttpResponseHandler extends SkyTextHttpResponseHandler {
                 parser.run();
             }
         } else {
-            AsyncHttpClient.log.v(LOG_TAG, "response body is null, calling onFailure(Throwable, JSONObject)");
+            SkyAsyncHttpClient.log.v(LOG_TAG, "response body is null, calling onFailure(Throwable, JSONObject)");
             onFailure(statusCode, headers, throwable, (JSONObject) null);
         }
     }

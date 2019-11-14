@@ -7,7 +7,6 @@ import android.os.PowerManager;
 import kr.skyware.commons.util.Globals;
 
 import static android.os.PowerManager.*;
-import static android.os.PowerManager.FULL_WAKE_LOCK;
 
 public class ScreenWake {
 
