@@ -74,14 +74,14 @@ get("{url}", params, new SkyJsonHttpResponseHandler(){
 ---
 * **SQLITE**
     * SkyDBHelper, SkyDBProvider, SkyDBData
-<pre>
+
 Class | 의미 
----|:---:
+---|:---:|
 `SkyDBHelper` | 로컬 데이터베이스에 테이블 생성 역활(현재 user, history 테이블을 생성하게 되있음)
 `SkyDBProvider` | 쿼리 공급자 역활수행
 `SkyDBData` | user, history table 초기 값 설정(사용안해도됨)
 
-</pre>
+
 
 
 
