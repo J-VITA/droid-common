@@ -15,18 +15,18 @@ import kr.skyware.commons.http.header.HttpUriRequest;
 import kr.skyware.commons.http.util.HttpStatus;
 import kr.skyware.commons.http.util.StatusLine;
 
-public abstract class RangeFileAsyncHttpResponseHandler extends FileAsyncHttpResponseHandler {
+public abstract class RangeFileSkyAsyncHttpResponseHandler extends FileSkyAsyncHttpResponseHandler {
     private static final String LOG_TAG = "RangeFileAsyncHttpRH";
 
     private long current = 0;
     private boolean append = false;
 
     /**
-     * Obtains new RangeFileAsyncHttpResponseHandler and stores response in passed file
+     * Obtains new RangeFileSkyAsyncHttpResponseHandler and stores response in passed file
      *
      * @param file File to store response within, must not be null
      */
-    public RangeFileAsyncHttpResponseHandler(File file) {
+    public RangeFileSkyAsyncHttpResponseHandler(File file) {
         super(file);
     }
 

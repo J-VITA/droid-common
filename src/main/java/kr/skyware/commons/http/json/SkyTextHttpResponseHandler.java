@@ -3,10 +3,10 @@ package kr.skyware.commons.http.json;
 import java.io.UnsupportedEncodingException;
 
 import kr.skyware.commons.http.SkyAsyncHttpClient;
-import kr.skyware.commons.http.handler.AsyncHttpResponseHandler;
+import kr.skyware.commons.http.handler.SkyAsyncHttpResponseHandler;
 import kr.skyware.commons.http.header.Header;
 
-public abstract class SkyTextHttpResponseHandler extends AsyncHttpResponseHandler {
+public abstract class SkyTextHttpResponseHandler extends SkyAsyncHttpResponseHandler {
     private static final String LOG_TAG = "TextHttpRH";
 
     /**

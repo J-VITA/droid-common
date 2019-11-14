@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import kr.skyware.commons.http.client.AbstractHttpClient;
 import kr.skyware.commons.http.client.HttpRequestRetryHandler;
-import kr.skyware.commons.http.handler.RangeFileAsyncHttpResponseHandler;
+import kr.skyware.commons.http.handler.RangeFileSkyAsyncHttpResponseHandler;
 import kr.skyware.commons.http.handler.ResponseHandlerInterface;
 import kr.skyware.commons.http.header.HttpContext;
 import kr.skyware.commons.http.header.HttpUriRequest;
@@ -121,8 +121,8 @@ public class SkyAsyncHttpRequest implements Runnable {
             throw new MalformedURLException("No valid URI scheme was provided");
         }
 
-        if (responseHandler instanceof RangeFileAsyncHttpResponseHandler) {
-            ((RangeFileAsyncHttpResponseHandler) responseHandler).updateRequestHeaders(request);
+        if (responseHandler instanceof RangeFileSkyAsyncHttpResponseHandler) {
+            ((RangeFileSkyAsyncHttpResponseHandler) responseHandler).updateRequestHeaders(request);
         }
 
         HttpResponse response = client.execute(request, context);

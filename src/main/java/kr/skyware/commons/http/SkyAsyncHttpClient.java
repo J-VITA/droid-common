@@ -43,7 +43,7 @@ import kr.skyware.commons.http.factory.PlainSocketFactory;
 import kr.skyware.commons.http.factory.SSLSocketFactory;
 import kr.skyware.commons.http.factory.SchemeRegistry;
 import kr.skyware.commons.http.factory.SkySSLSocketFactory;
-import kr.skyware.commons.http.handler.AsyncHttpResponseHandler;
+import kr.skyware.commons.http.handler.SkyAsyncHttpResponseHandler;
 import kr.skyware.commons.http.handler.LogHandler;
 import kr.skyware.commons.http.handler.LogInterface;
 import kr.skyware.commons.http.handler.RequestHandle;
@@ -1382,7 +1382,7 @@ public class SkyAsyncHttpClient {
      * @param params          additional DELETE parameters or files to send with the request.
      * @param responseHandler the response handler instance that should handle the response.
      */
-    public void delete(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+    public void delete(String url, RequestParams params, SkyAsyncHttpResponseHandler responseHandler) {
         final HttpDelete delete = new HttpDelete(getUrlWithQueryString(isUrlEncodingEnabled, url, params));
         sendRequest(httpClient, httpContext, delete, null, responseHandler, null);
     }

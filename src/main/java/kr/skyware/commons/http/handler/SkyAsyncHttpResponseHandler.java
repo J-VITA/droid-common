@@ -17,9 +17,10 @@ import kr.skyware.commons.http.exception.HttpResponseException;
 import kr.skyware.commons.http.header.Header;
 import kr.skyware.commons.http.util.ByteArrayBuffer;
 import kr.skyware.commons.http.util.StatusLine;
+import kr.skyware.commons.util.Globals;
 import kr.skyware.commons.util.Utils;
 
-public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterface {
+public abstract class SkyAsyncHttpResponseHandler implements ResponseHandlerInterface {
     public static final String DEFAULT_CHARSET = "UTF-8";
     public static final String UTF8_BOM = "\uFEFF";
     protected static final int SUCCESS_MESSAGE = 0;
@@ -30,7 +31,7 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
     protected static final int RETRY_MESSAGE = 5;
     protected static final int CANCEL_MESSAGE = 6;
     protected static final int BUFFER_SIZE = 4096;
-    private static final String LOG_TAG = "AsyncHttpRH";
+    private static final String LOG_TAG = "SkyAsyncHttp : " + Globals.LOG_TAG;
     private String responseCharset = DEFAULT_CHARSET;
     private Handler handler;
     private boolean useSynchronousMode;
@@ -42,20 +43,20 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
     private WeakReference<Object> TAG = new WeakReference<Object>(null);
 
     /**
-     * Creates a new AsyncHttpResponseHandler
+     * Creates a new SkyAsyncHttpResponseHandler
      */
-    public AsyncHttpResponseHandler() {
+    public SkyAsyncHttpResponseHandler() {
         this(null);
     }
 
     /**
-     * Creates a new AsyncHttpResponseHandler with a user-supplied looper. If
+     * Creates a new SkyAsyncHttpResponseHandler with a user-supplied looper. If
      * the passed looper is null, the looper attached to the current thread will
      * be used.
      *
      * @param looper The looper to work with
      */
-    public AsyncHttpResponseHandler(Looper looper) {
+    public SkyAsyncHttpResponseHandler(Looper looper) {
         this.looper = looper == null ? Looper.myLooper() : looper;
 
         // Use asynchronous mode by default.
@@ -66,12 +67,12 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
     }
 
     /**
-     * Creates a new AsyncHttpResponseHandler and decide whether the callbacks
+     * Creates a new SkyAsyncHttpResponseHandler and decide whether the callbacks
      * will be fired on current thread's looper or the pool thread's.
      *
      * @param usePoolThread Whether to use the pool's thread to fire callbacks
      */
-    public AsyncHttpResponseHandler(boolean usePoolThread) {
+    public SkyAsyncHttpResponseHandler(boolean usePoolThread) {
         // Whether to use the pool's thread to fire callbacks.
         setUsePoolThread(usePoolThread);
 
@@ -437,9 +438,9 @@ public abstract class AsyncHttpResponseHandler implements ResponseHandlerInterfa
      * Avoid leaks by using a non-anonymous handler class.
      */
     private static class ResponderHandler extends Handler {
-        private final AsyncHttpResponseHandler mResponder;
+        private final SkyAsyncHttpResponseHandler mResponder;
 
-        ResponderHandler(AsyncHttpResponseHandler mResponder, Looper looper) {
+        ResponderHandler(SkyAsyncHttpResponseHandler mResponder, Looper looper) {
             super(looper);
             this.mResponder = mResponder;
         }

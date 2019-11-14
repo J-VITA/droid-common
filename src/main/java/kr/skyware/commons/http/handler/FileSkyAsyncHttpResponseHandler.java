@@ -13,7 +13,7 @@ import kr.skyware.commons.http.HttpEntity;
 import kr.skyware.commons.http.header.Header;
 import kr.skyware.commons.util.Utils;
 
-public abstract class FileAsyncHttpResponseHandler extends AsyncHttpResponseHandler {
+public abstract class FileSkyAsyncHttpResponseHandler extends SkyAsyncHttpResponseHandler {
     private static final String LOG_TAG = "FileAsyncHttpRH";
     protected final File file;
     protected final boolean append;
@@ -21,47 +21,47 @@ public abstract class FileAsyncHttpResponseHandler extends AsyncHttpResponseHand
     protected File frontendFile;
 
     /**
-     * Obtains new FileAsyncHttpResponseHandler and stores response in passed file
+     * Obtains new FileSkyAsyncHttpResponseHandler and stores response in passed file
      *
      * @param file File to store response within, must not be null
      */
-    public FileAsyncHttpResponseHandler(File file) {
+    public FileSkyAsyncHttpResponseHandler(File file) {
         this(file, false);
     }
 
     /**
-     * Obtains new FileAsyncHttpResponseHandler and stores response in passed file
+     * Obtains new FileSkyAsyncHttpResponseHandler and stores response in passed file
      *
      * @param file   File to store response within, must not be null
      * @param append whether data should be appended to existing file
      */
-    public FileAsyncHttpResponseHandler(File file, boolean append) {
+    public FileSkyAsyncHttpResponseHandler(File file, boolean append) {
         this(file, append, false);
     }
 
     /**
-     * Obtains new FileAsyncHttpResponseHandler and stores response in passed file
+     * Obtains new FileSkyAsyncHttpResponseHandler and stores response in passed file
      *
      * @param file                     File to store response within, must not be null
      * @param append                   whether data should be appended to existing file
      * @param renameTargetFileIfExists whether target file should be renamed if it already exists
      */
-    public FileAsyncHttpResponseHandler(File file, boolean append, boolean renameTargetFileIfExists) {
+    public FileSkyAsyncHttpResponseHandler(File file, boolean append, boolean renameTargetFileIfExists) {
         this(file,append,renameTargetFileIfExists,false);
     }
 
 
     /**
-     * Obtains new FileAsyncHttpResponseHandler and stores response in passed file
+     * Obtains new FileSkyAsyncHttpResponseHandler and stores response in passed file
      *
      * @param file                     File to store response within, must not be null
      * @param append                   whether data should be appended to existing file
      * @param renameTargetFileIfExists whether target file should be renamed if it already exists
      * @param usePoolThread Whether to use the pool's thread to fire callbacks
      */
-    public FileAsyncHttpResponseHandler(File file, boolean append, boolean renameTargetFileIfExists,boolean usePoolThread) {
+    public FileSkyAsyncHttpResponseHandler(File file, boolean append, boolean renameTargetFileIfExists, boolean usePoolThread) {
         super(usePoolThread);
-        Utils.asserts(file != null, "File passed into FileAsyncHttpResponseHandler constructor must not be null");
+        Utils.asserts(file != null, "File passed into FileSkyAsyncHttpResponseHandler constructor must not be null");
         if (!file.isDirectory() && !file.getParentFile().isDirectory()) {
             Utils.asserts(file.getParentFile().mkdirs(), "Cannot create parent directories for requested File location");
         }
@@ -76,11 +76,11 @@ public abstract class FileAsyncHttpResponseHandler extends AsyncHttpResponseHand
     }
 
     /**
-     * Obtains new FileAsyncHttpResponseHandler against context with target being temporary file
+     * Obtains new FileSkyAsyncHttpResponseHandler against context with target being temporary file
      *
      * @param context Context, must not be null
      */
-    public FileAsyncHttpResponseHandler(Context context) {
+    public FileSkyAsyncHttpResponseHandler(Context context) {
         super();
         this.file = getTemporaryFile(context);
         this.append = false;

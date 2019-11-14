@@ -11,7 +11,7 @@ import java.net.URLEncoder;
 import kr.skyware.commons.http.SkyAsyncHttpClient;
 import kr.skyware.commons.http.RequestParams;
 import kr.skyware.commons.http.entity.StringEntity;
-import kr.skyware.commons.http.handler.AsyncHttpResponseHandler;
+import kr.skyware.commons.http.handler.SkyAsyncHttpResponseHandler;
 import kr.skyware.commons.http.header.Header;
 import kr.skyware.commons.util.Logging;
 
@@ -48,31 +48,31 @@ public class SkywareRequest{
         BASE_URL = base_url;
     }
 
-    public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) throws UnsupportedEncodingException {
+    public static void get(String url, RequestParams params, SkyAsyncHttpResponseHandler responseHandler) throws UnsupportedEncodingException {
         Logging.d("request params\n [\n " + params.toString() + "\n]");
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
-    public static void get(Context context, String url, Header[] headers, RequestParams params, AsyncHttpResponseHandler responseHandler) throws UnsupportedEncodingException {
+    public static void get(Context context, String url, Header[] headers, RequestParams params, SkyAsyncHttpResponseHandler responseHandler) throws UnsupportedEncodingException {
         Logging.d("request params\n [\n " + params.toString() + "\n]");
         client.get(context, getAbsoluteUrl(url), headers, params, responseHandler);
     }
 
-    public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) throws UnsupportedEncodingException{
+    public static void post(String url, RequestParams params, SkyAsyncHttpResponseHandler responseHandler) throws UnsupportedEncodingException{
         Logging.d("request params\n [\n " + params.toString() + "\n]");
         client.post(url, params, responseHandler);
     }
-    public static void post(Context context, String url, JSONObject jsonParams, AsyncHttpResponseHandler responseHandler) throws UnsupportedEncodingException {
+    public static void post(Context context, String url, JSONObject jsonParams, SkyAsyncHttpResponseHandler responseHandler) throws UnsupportedEncodingException {
         Logging.d("request params\n [\n " + jsonParams.toString() + "\n]");
         StringEntity entity = new StringEntity(URLEncoder.encode(jsonParams.toString(), "UTF-8"));
         client.post(context, getAbsoluteUrl(url), entity, "application/json;charset=UTF-8", responseHandler);
     }
 
-    public static void put(Context context, String url, RequestParams params, AsyncHttpResponseHandler responseHandler) throws UnsupportedEncodingException{
+    public static void put(Context context, String url, RequestParams params, SkyAsyncHttpResponseHandler responseHandler) throws UnsupportedEncodingException{
         Logging.d("request params\n [\n " + params.toString() + "\n]");
         client.put(context, getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void delete(Context context, String url, Header[] headers, RequestParams params, AsyncHttpResponseHandler responseHandler) throws  UnsupportedEncodingException{
+    public static void delete(Context context, String url, Header[] headers, RequestParams params, SkyAsyncHttpResponseHandler responseHandler) throws  UnsupportedEncodingException{
         Logging.d("request params\n [\n " + params.toString() + "\n]");
         client.delete(context, getAbsoluteUrl(url), headers, params, responseHandler);
     }
