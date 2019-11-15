@@ -7,10 +7,20 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.view.ViewCompat;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import kr.skyware.commons.R;
+import kr.skyware.commons.util.Globals;
+import kr.skyware.commons.util.Logging;
 
 public class SkywareApplication extends Application {
 
@@ -46,6 +56,8 @@ public class SkywareApplication extends Application {
 
         super.onCreate();
 
+        init();
+
         //
 //        if (DeviceMng.isNetworkConnected(mContext)) {
 ////            getCallerId(mContext);
@@ -55,6 +67,28 @@ public class SkywareApplication extends Application {
 //        }
 
     }
+
+    private void init(){
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Logging.w(Globals.LOG_TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Logging.d(Globals.LOG_TAG, msg);
+                        Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     public Thread.UncaughtExceptionHandler getUncaughtExceptionHandler() {
         return unCatchExceptionHandlerApplication;
     }

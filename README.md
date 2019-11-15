@@ -11,8 +11,7 @@ implementation 'com.skyware:droid-commons:1.0.1-RELEASE'
 ---
 * [project build.gradle]
 * 스크립트 추가 Maven
-<pre>
-<code>
+
 ```gradle
 buildscript {
     repositories {
@@ -30,31 +29,22 @@ allprojects {
     }
 }
 ```
-</code>
-</pre>
+
 ---
 * **Notification Manager**
-* FCM 서비스 등록 후 json 파일 배치 및 gradle 설정 후 FirebaseService를 Manifest service 등록 후 사용하면됨.
-* (sendNotification은 디바이스에 노티알림을 위한 메서드임.)
-<pre>
-<code>
-```java
-SkyNotification noti = new SkyNotification();
-HashMap<String, String> info = new HashMap<>();
-info.put("title", "타이틀");
-info.put("body", "바디");
+* FireBase Cloud Messaging
+> 참고 
+> [Firebase console][https://console.firebase.google.com/u/0/project/skyware-3ca62/settings/general/android:kr.skyware.commons] <br/>
 
-/**
-* @params HashMap, Context, (int)icon, (android.net.Uri) sound
-**/
-noti.sendNotification(info, mContext, R.mipmap.ic_launcher, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-```
-</code>
-</pre>
----
-* **SkyAsyncHttpClient**
 <pre>
-<code>
+- 생성 앱 애플리케이션을 Manifest.xml 에 SkywareApplication 을 등록해준다. 
+끝.
+</pre>  
+![user manifest.xml](manifest_sample.png "사진대로 Application 추가하세요.")
+
+---
+
+* **SkyAsyncHttpClient**
 ```java
 //사용 예시 : get method
 public static void get(String url, RequestParams params, SkyAsyncHttpResponseHandler responseHandler)  {
@@ -74,10 +64,13 @@ get("{url}", params, new SkyJsonHttpResponseHandler(){
     ...
 });
 ```
+<pre>
+<code>
 ※ post, put, delete 등 각 HTTP METHOD별 사용하기 편리하게 구현하여 사용하면 됨.
 </code>
 </pre>
 ---
+  
 * **SQLITE**
     * SkyDBHelper, SkyDBProvider, SkyDBData
 
@@ -85,16 +78,15 @@ Class | 의미
 ---|:---:|
 `SkyDBHelper` | 로컬 데이터베이스에 테이블 생성 역활(현재 user, history 테이블을 생성하게 되있음)
 `SkyDBProvider` | 쿼리 공급자 역활수행
-`SkyDBData` | user, history table 초기 값 설정(사용안해도됨)
-
+`SkyDBData` | user, history table 초기 값 설정(사용안해도됨)  
   
   
   
   
   
-
+  
 ---
-> created by jayKim. <br/>
 > 인용 : cz_msebera_android_httpclient 4.3.* (안드로이드 라이브러리) <br/>
 > _(지속적으로 입맛에 맞게 변경하여 사용하기)_
+> created by jayKim. <br/>
 ---

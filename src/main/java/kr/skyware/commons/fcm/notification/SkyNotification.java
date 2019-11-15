@@ -19,7 +19,7 @@ public class SkyNotification {
 
     }
 
-    public void sendNotification(HashMap<String, String> info, Context context, int icon, Uri sound){
+    public static void sendNotification(HashMap<String, String> info, Context context, int icon, Uri sound){
         Intent intent = new Intent(context, ((Activity)context).getClass());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
